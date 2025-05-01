@@ -13,14 +13,57 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * © 2025 Universidad Distrital Francisco José de Caldas. All rights reserved.
+ * Licensed for private academic use only. Unauthorized distribution prohibited.
+ *
+ * Asignatura: Programación Avanzada
+ * Semestre: 2025–I
+ * Profesora: María Fernanda Díaz Hernández
+ * Grupo: 020-81
+ *
+ * <p>Controlador REST responsable de la gestión de usuarios en la biblioteca.</p>
+ * <ul>
+ *   <li><b>Login</b>: autentica usuarios como administrador o lector.</li>
+ *   <li><b>Register</b>: registra nuevos administradores o lectores.</li>
+ *   <li><b>List Lectores</b>: devuelve la lista de lectores registrados.</li>
+ * </ul>
+ *
+ * <p>Uso general:</p>
+ * <pre>
+ *   POST /api/login    -> Autenticación de usuarios
+ *   POST /api/register -> Registro de nuevos usuarios
+ *   GET  /api/p        -> Listado de lectores
+ * </pre>
+ *
+ * Autores:
+ * <ul>
+ *   <li>Juan David Mayorga López – ID 20232020116 – Desarrollador Backend</li>
+ *   <li>Ángel Iván López Rodríguez – ID 20232020113 – Analista de Requisitos</li>
+ *   <li>Edgar Andrés Ángel Pulido – ID 20232020133 – QA & Documentación</li>
+ * </ul>
+ *
+ * @version 1.0
+ * @since 2025-04-30
+ */
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "*")
 public class Gestor {
-
+    /** Data Access Object para operaciones de administrador */
     @Autowired
-//el pepe
-//Hola, esto es una prueba 
+    /**
+     * Autentica un usuario en el sistema según su rol.
+     *
+     * @param credentials Map con parámetros:
+     *                    <ul>
+     *                      <li>{@code username} (String): identificador de usuario.</li>
+     *                      <li>{@code password} (String): contraseña en texto claro.</li>
+     *                      <li>{@code role} (String): "admin" o "user".</li>
+     *                    </ul>
+     * @return Map<String, Object> con la clave {@code success} establecida a {@code true}
+     *         si la autenticación es exitosa, o {@code false} en caso contrario.
+     */
     @PostMapping("/login")
     public Map<String, Object> login(@RequestBody Map<String, Object> credentials) {
         String username = (String) credentials.get("username");
@@ -43,7 +86,22 @@ public class Gestor {
 
         return response;
     }
-
+     /**
+     * Registra un nuevo usuario como administrador o lector.
+     *
+     * @param credentials Map con parámetros:
+     *                    <ul>
+     *                      <li>{@code name} (String): nombre de usuario deseado.</li>
+     *                      <li>{@code password} (String): contraseña deseada.</li>
+     *                      <li>{@code email} (String): correo electrónico del usuario.</li>
+     *                      <li>{@code role} (String): "admin" o "user".</li>
+     *                    </ul>
+     * @return Map<String, Object> con las claves:
+     *         <ul>
+     *           <li>{@code success}: {@code true} si el registro fue exitoso.</li>
+     *           <li>{@code message}: descripción del resultado en caso de error o confirmación.</li>
+     *         </ul>
+     */
     @PostMapping("/register")
     public Map<String, Object> register(@RequestBody Map<String, Object> credentials) {    
         String username = (String) credentials.get("name");
@@ -76,7 +134,11 @@ public class Gestor {
         response.put("message", "Usuario registrado exitosamente.");
         return response;
     }
-
+    /**
+     * Muestra todos los lectores registrados en el sistema.
+     *
+     * @return ArrayList con todos los lectores registrados.
+     */
     @GetMapping("/p")
     public ArrayList Login() {
         return new LectorDAO().MostrarLectores();
