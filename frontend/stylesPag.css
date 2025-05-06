@@ -3,6 +3,8 @@ body {
     display: flex;
     margin: 0;
     height: 100vh;
+    background-repeat: none;
+    background-size: cover;
 }
 
 /* 🔹 Menú Lateral */

@@ -15,7 +15,7 @@ let Login = async () => {
     if (user.role === "user") {
       window.location.href = "lector.html";
     } else if (user.role === "admin") {
-      window.location.href = "admin_dashboard.html";
+      window.location.href = "admin.html";
     } 
   }else {
     alert("Credenciales incorrectas.");

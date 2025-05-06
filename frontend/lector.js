@@ -1,11 +1,13 @@
-document.addEventListener("DOMContentLoaded", () => {
-    let lector = JSON.parse(localStorage.getItem("lector"));
-    if (!lector) {
-        window.location.href = "login.html";
-    } else {
-        document.getElementById("lectorNombre").textContent = lector.name;
-    }
-});
+
+function Lector(name){
+   // let lector = JSON.parse(localStorage.getItem("lector"));
+    //if (!lector) {
+   //     window.location.href = "login.html";
+   // } else {
+   alert("pepe");
+        document.getElementById("lectorNombre").textContent = name;
+   // }
+}
 
 // Expandir/Encoger Menú
 function toggleSidebar() {

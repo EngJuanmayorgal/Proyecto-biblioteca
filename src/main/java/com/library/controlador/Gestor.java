@@ -52,6 +52,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class Gestor {
     /** Data Access Object para operaciones de administrador */
     @Autowired
+
     /**
      * Autentica un usuario en el sistema según su rol.
      *
@@ -64,6 +65,7 @@ public class Gestor {
      * @return Map<String, Object> con la clave {@code success} establecida a {@code true}
      *         si la autenticación es exitosa, o {@code false} en caso contrario.
      */
+
     @PostMapping("/login")
     public Map<String, Object> login(@RequestBody Map<String, Object> credentials) {
         String username = (String) credentials.get("username");
