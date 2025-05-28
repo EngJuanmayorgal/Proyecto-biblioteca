@@ -13,7 +13,7 @@ public class Connectiondb {
     static String dbName = "biblioteca";
     static String url = "jdbc:mysql://localhost:3306/";
     static String user = "root";
-    static String pass = "2566Jeiden@13752";
+    static String pass = "mysql";
     static Connection db;
     
 
