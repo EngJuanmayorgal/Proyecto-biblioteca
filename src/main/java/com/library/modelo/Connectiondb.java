@@ -36,9 +36,11 @@ public class Connectiondb {
     static String user = "root";
 
     /** Contraseña de acceso a la base de datos */
-    static String pass = "2566Jeiden@13752";
+    static String pass = "mysql";
 
     /** Objeto Connection activo */
+
+ 
     static Connection db;
 
     /**
