@@ -2,6 +2,7 @@ package com.library.controlador;
 
 import com.library.modelo.AdminDAO;
 import com.library.modelo.LectorDAO;
+import com.library.modelo.LectorVO;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -74,15 +75,21 @@ public class Gestor {
         Map<String, Object> response = new HashMap<>();
         if ("admin".equals(role)) {
             AdminDAO admin = new AdminDAO();
+            
             if (admin.entrarAdmin(username, password)) {
                 response.put("success", true);
             }
         } else if ("user".equals(role)) {
             LectorDAO lector = new LectorDAO();
+            System.out.println(lector.MostrarLectores().size());
+            for (LectorVO object : lector.MostrarLectores()) {
+                System.out.println(object.getName());
+            }
             if (lector.entrarLector(username, password)) {
                 response.put("success", true);
             }
         } else {
+            System.out.println("f");
             response.put("success", false);
         }
 
