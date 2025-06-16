@@ -1,12 +1,11 @@
-
-function Lector(name){
-   // let lector = JSON.parse(localStorage.getItem("lector"));
-    //if (!lector) {
-   //     window.location.href = "login.html";
-   // } else {
-   alert("pepe");
-        document.getElementById("lectorNombre").textContent = name;
-   // }
+Lector()
+function Lector(){
+   let lector = JSON.parse(localStorage.getItem("lector"));
+    if (!lector) {
+        window.location.href = "login.html";
+    } else {
+        document.getElementById("lectorNombre").textContent =" "+ lector.name;
+    }
 }
 
 // Expandir/Encoger Menú
@@ -21,7 +20,7 @@ function verMisDatos() {
         <h3>Mis Datos</h3>
         <p><strong>Nombre:</strong> ${lector.name}</p>
         <p><strong>Email:</strong> ${lector.email}</p>
-        <p><strong>Rol:</strong> ${lector.role}</p>
+        <p><strong>Rol:</strong> lector</p>
     `;
 }
 

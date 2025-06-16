@@ -13,12 +13,13 @@ let Login = async () => {
   const data = await response.json();
   if (data.success) {
     if (user.role === "user") {
+      localStorage.setItem("lector",JSON.stringify(data.user))
       window.location.href = "lector.html";
     } else if (user.role === "admin") {
       window.location.href = "admin.html";
-    } 
-  }else {
+    }
+  } else {
     alert("Credenciales incorrectas.");
-    window.location.href="login.html";
+    window.location.href = "login.html";
   }
 };

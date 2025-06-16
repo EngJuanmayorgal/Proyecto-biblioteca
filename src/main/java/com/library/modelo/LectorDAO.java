@@ -88,6 +88,26 @@ public class LectorDAO {
             return false;
         }
     }
+    public LectorVO entrarLectorVO(String user, String pass) {
+        String consulta = "SELECT * FROM lector WHERE name = '" + user + "' AND pass = " + pass;
+        try {
+            con = Connectiondb.connection();
+            st = con.createStatement();
+            rs = st.executeQuery(consulta);
+            if (rs.next()) {
+                LectorVO lector = new LectorVO(rs.getInt("id_lector"), rs.getString("name"), rs.getString("email"));
+                st.close();
+                Connectiondb.disconnected();
+                return lector;
+            } else {
+                st.close();
+                Connectiondb.disconnected();
+                return null;
+            }
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
 
     /**
      * Verifica si un lector con el nombre dado ya está registrado en la base de datos.
