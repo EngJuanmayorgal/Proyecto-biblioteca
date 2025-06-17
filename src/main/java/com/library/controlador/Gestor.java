@@ -143,14 +143,6 @@ public class Gestor {
         return response;
     }
 
-    /**
-     * Muestra todos los lectores registrados en el sistema.
-     *
-     * @return ArrayList con todos los lectores registrados.
-     */
-    @GetMapping("/p")
-    public ArrayList Login() {
-        return new LectorDAO().MostrarLectores();
-    }
+    
 
 }

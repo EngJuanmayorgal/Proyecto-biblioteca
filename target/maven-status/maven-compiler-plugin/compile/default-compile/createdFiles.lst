@@ -7,6 +7,7 @@ com\library\modelo\PrestamoVO.class
 com\library\modelo\LibroVO.class
 com\library\Biblioteca\BibliotecaApplication.class
 com\library\modelo\UsuarioVO.class
+com\library\modelo\LibroDAO.class
 com\library\controlador\GestorAdmin.class
 com\library\controlador\GestorLibros.class
 com\library\modelo\LectorVO.class
