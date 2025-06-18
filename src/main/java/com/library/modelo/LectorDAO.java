@@ -141,6 +141,7 @@ public class LectorDAO {
      * @return Lista de objetos LectorVO con la información de cada lector
      */
     
+    
     public ArrayList<LectorVO> MostrarLectores() {
         ArrayList<LectorVO> lectores = new ArrayList<>();
         String consulta = "SELECT * FROM lector ORDER BY id_lector";

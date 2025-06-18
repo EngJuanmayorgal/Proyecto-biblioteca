@@ -1,8 +1,11 @@
 package com.library.controlador;
 
+import com.library.modelo.LibroDAO;
 import java.util.ArrayList;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -40,10 +43,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class GestorLibros {
 
     
-    
-    public void verLibros(){
-    
-    
+    @GetMapping("/libros/id_lector")
+    public ArrayList verLibros(@RequestParam int id_lector){
+    return new LibroDAO().MostrarLibros(id_lector);
     }   
     /**
      * Añade un nuevo libro al catálogo de la biblioteca.

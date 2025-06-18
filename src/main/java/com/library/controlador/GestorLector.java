@@ -1,10 +1,17 @@
 package com.library.controlador;
 
 import com.library.modelo.LectorDAO;
+import com.library.modelo.PrestamoDAO;
+import com.library.modelo.PrestamoVO;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -33,34 +40,28 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "*")
 public class GestorLector {
 
-    /**
-     * Registra un nuevo usuario lector en el sistema.
-     * <p>
-     * Se encarga de validar la información proporcionada y de persistir el
-     * nuevo registro en la base de datos.
-     * </p>
-     */
-    public void RegistrarUsuario() {
-
+    @PostMapping("/prestamo")
+    public Map<String, Object> pedirPrestamo(@RequestBody Map<String, Object> credentials) {
+        Map<String, Object> response = new HashMap<>();
+        Map<String, Object> libro = (Map<String, Object>) credentials.get("libro");
+        int uniDispo = Integer.parseInt(libro.get("uniDispo").toString());
+        int idLibro = Integer.parseInt(libro.get("id_libro").toString());
+        String fPrestamo = (String) libro.get("fecha_prestamo");
+        String fDevolucion = (String) libro.get("fecha_devolucion");
+        Map<String, Object> lector = (Map<String, Object>) libro.get("lector");
+        int idLector = Integer.parseInt(lector.get("id_lector").toString());
+        PrestamoDAO prestamo = new PrestamoDAO();
+        if (prestamo.ingresarPrestamo(fPrestamo, fDevolucion, idLibro, idLector, uniDispo)) {
+            response.put("ok", true);
+        } else {
+            response.put("ok", false);
+        }
+        return response;
     }
 
-    /**
-     * Edita la información de un usuario lector existente.
-     * <p>
-     * Permite modificar datos como nombre, correo o contraseña.
-     * </p>
-     */
-    public void EditarUsuario() {
-
-    }
-
-    /**
-     * Consulta los datos de un usuario lector específico.
-     * <p>
-     * Retorna la información detallada del usuario identificado.
-     * </p>
-     */
-    public void ConsultarUsuario() {
+    @GetMapping("/prestamos/id_lector")
+    public ArrayList verPrestamos(@RequestParam int id_lector) {
+        return new PrestamoDAO().MostrarPrestamosLector(id_lector);
 
     }
 
@@ -83,7 +84,8 @@ public class GestorLector {
     public void EliminarUsuario() {
 
     }
-/**
+
+    /**
      * Muestra todos los lectores registrados en el sistema.
      *
      * @return ArrayList con todos los lectores registrados.

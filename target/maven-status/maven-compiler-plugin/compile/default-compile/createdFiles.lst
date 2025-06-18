@@ -1,7 +1,7 @@
 com\library\modelo\LectorDAO.class
+com\library\modelo\PrestamoDAO.class
 com\library\controlador\Gestor.class
 com\library\modelo\Connectiondb.class
-com\library\controlador\GestorBiblioteca.class
 com\library\controlador\GestorLector.class
 com\library\modelo\PrestamoVO.class
 com\library\modelo\LibroVO.class

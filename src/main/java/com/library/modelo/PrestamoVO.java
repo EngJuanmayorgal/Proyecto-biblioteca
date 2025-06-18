@@ -22,50 +22,51 @@ import java.util.Date;
  * @since 2025-04-30
  */
 public class PrestamoVO {
+    
 
-    /** ID del usuario que realiza el préstamo (estático) */
-    private static int idUsuario;
+    /**
+     * id del prestamo
+     */
+    private final int idPrestamo;
+    
+    /** titulo del libro prestado */
+    private final  String titulo;
 
-    /** ID del libro prestado (estático) */
-    private static int idLibro;
+    /** Fecha de retiro del libro  */
+    private final  String fechaRetiro;
 
-    /** Fecha de retiro del libro (estático) */
-    private static Date fechaRetiro;
-
-    /** Fecha de entrega del libro (estático) */
-    private static Date fechaEntrega;
+    /** Fecha de entrega del libro  */
+    private final  String fechaEntrega;
 
     /**
      * Constructor de la clase PrestamoVO.
      *
-     * @param idUsuario ID del usuario
-     * @param idLibro ID del libro
+     * @param idPrestamo id del prestamo
+     * @param titulo titulo del libro prestado
      * @param fechaRetiro Fecha de retiro del libro
      * @param fechaEntrega Fecha de entrega del libro
      */
-    public PrestamoVO(int idUsuario, int idLibro, Date fechaRetiro, Date fechaEntrega) {
-        PrestamoVO.idUsuario = idUsuario;
-        PrestamoVO.idLibro = idLibro;
-        PrestamoVO.fechaRetiro = fechaRetiro;
-        PrestamoVO.fechaEntrega = fechaEntrega;
+    public  PrestamoVO(int idPrestamo, String titulo, String fechaRetiro, String fechaEntrega) {    
+        this.idPrestamo = idPrestamo;
+        this.titulo = titulo;
+        this.fechaRetiro = fechaRetiro;
+        this.fechaEntrega = fechaEntrega;
     }
-
-    /**
-     * Obtiene el ID del usuario.
+/**
+     * Obtiene el id del prestamo.
      *
-     * @return ID del usuario
+     * @return id del prestamo
      */
-    public static int getIdUsuario() {
-        return idUsuario;
+    public int getIdPrestamo() {
+        return idPrestamo;
     }
-
-    /**
-     * Obtiene el ID del libro.
+/**
+     * Obtiene el titulo del libro prestado.
      *
-     * @return ID del libro
+     * @return titulo
      */
-    public static int getIdLibro() {
-        return idLibro;
+    public String getTitulo() {
+        return titulo;
     }
 
     /**
@@ -73,7 +74,7 @@ public class PrestamoVO {
      *
      * @return Fecha de retiro
      */
-    public static Date getFechaRetiro() {
+    public String getFechaRetiro() {
         return fechaRetiro;
     }
 
@@ -82,7 +83,7 @@ public class PrestamoVO {
      *
      * @return Fecha de entrega
      */
-    public static Date getFechaEntrega() {
+    public  String getFechaEntrega() {
         return fechaEntrega;
     }
 

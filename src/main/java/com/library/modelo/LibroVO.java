@@ -1,37 +1,54 @@
-
 package com.library.modelo;
 
 /**
- * © 2025 Universidad Distrital Francisco José de Caldas. Todos los derechos reservados.
- * Licenciado para uso académico privado. Distribución no autorizada prohibida.
+ * © 2025 Universidad Distrital Francisco José de Caldas. Todos los derechos
+ * reservados. Licenciado para uso académico privado. Distribución no autorizada
+ * prohibida.
  *
- * Asignatura: Programación Avanzada – Semestre 2025–I  
- * Profesora: María Fernanda Díaz Hernández  
- * Grupo: 020-81
+ * Asignatura: Programación Avanzada – Semestre 2025–I Profesora: María Fernanda
+ * Díaz Hernández Grupo: 020-81
  *
- * Clase LibroVO  
- * Representa un libro dentro del sistema de biblioteca. Contiene información sobre el título, autor, género y unidades disponibles.
+ * Clase LibroVO Representa un libro dentro del sistema de biblioteca. Contiene
+ * información sobre el título, autor, género y unidades disponibles.
  *
- * Autores:
- *   Juan David Mayorga López – ID 20232020116  
- *   Ángel Iván López Rodríguez – ID 20232020113  
- *   Edgar Andrés Ángel Pulido – ID 20232020133
+ * Autores: Juan David Mayorga López – ID 20232020116 Ángel Iván López Rodríguez
+ * – ID 20232020113 Edgar Andrés Ángel Pulido – ID 20232020133
  *
  * @version 1.0
  * @since 2025-04-30
  */
 public class LibroVO {
 
-    /** Título del libro (estático, compartido entre todas las instancias) */
-    private static String titulo;
+    /**
+     * Número de id del libro
+     */
+    private  int id_libro;
+    /**
+     * Título del libro (estático, compartido entre todas las instancias)
+     */
+    private  String titulo;
 
-    /** Autor del libro (estático, compartido entre todas las instancias) */
-    private static String autor;
+    /**
+     * Autor del libro (estático, compartido entre todas las instancias)
+     */
+    private  String autor;
+    /**
+     * isbn del libro
+     */
+    private  String isbn;
+    /**
+     * Año de publicacion del libro
+     */
+    private  int año_publi;
+    /**
+     * Género literario del libro (estático, compartido entre todas las
+     * instancias)
+     */
+    private  String genero;
 
-    /** Género literario del libro (estático, compartido entre todas las instancias) */
-    private static String genero;
-
-    /** Número de unidades disponibles del libro */
+    /**
+     * Número de unidades disponibles del libro
+     */
     private int unidDispo;
 
     /**
@@ -40,12 +57,18 @@ public class LibroVO {
      * @param titulo Título del libro
      * @param autor Autor del libro
      * @param genero Género del libro
+     * @param año_publi publicacion del libro
+     * @param isbn Isbn del libro
      * @param unidDispo Unidades disponibles
+     * @param id_libro Unidades disponibles
      */
-    public LibroVO(String titulo, String autor, String genero, int unidDispo) {
-        LibroVO.titulo = titulo;
-        LibroVO.autor = autor;
-        LibroVO.genero = genero;
+    public LibroVO(int id_libro, String titulo, String autor, int año_publi, String isbn, String genero, int unidDispo) {
+        this.id_libro = id_libro;
+        this.isbn = isbn;
+        this.año_publi = año_publi;
+        this.titulo = titulo;
+        this.autor = autor;
+        this.genero = genero;
         this.unidDispo = unidDispo;
     }
 
@@ -54,7 +77,7 @@ public class LibroVO {
      *
      * @return Título del libro
      */
-    public static String getTitulo() {
+    public  String getTitulo() {
         return titulo;
     }
 
@@ -63,7 +86,7 @@ public class LibroVO {
      *
      * @return Autor del libro
      */
-    public static String getAutor() {
+    public  String getAutor() {
         return autor;
     }
 
@@ -72,8 +95,34 @@ public class LibroVO {
      *
      * @return Género del libro
      */
-    public static String getGenero() {
+    public  String getGenero() {
         return genero;
+    }
+    /**
+     * Obtiene el isbn del libro.
+     *
+     * @return isbn del libro
+     */
+    public  String getIsbn() {
+        return isbn;
+    }
+
+    /**
+     * Obtiene el id del libro.
+     *
+     * @return id del libro
+     */
+    public  int getId_libro() {
+        return id_libro;
+    }
+
+    /**
+     * Obtiene el id del libro.
+     *
+     * @return id del libro
+     */
+    public  int getAño_publi() {
+        return año_publi;
     }
 
     /**
@@ -93,4 +142,5 @@ public class LibroVO {
     public void setUnidDispo(int unidDispo) {
         this.unidDispo = unidDispo;
     }
+
 }

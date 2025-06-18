@@ -17,6 +17,7 @@ let Registrar = async () => {
 
   alert(data.message);
   if (data.success) {
+    alert("Registro exitoso.");
     window.location.href = "login.html"; // Redirigir al login
   } else {
     window.location.href = "registrar.html";

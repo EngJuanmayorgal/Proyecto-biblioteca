@@ -2,12 +2,10 @@ package com.library.controlador;
 
 import com.library.modelo.AdminDAO;
 import com.library.modelo.LectorDAO;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -112,11 +110,11 @@ public class Gestor {
      */
     @PostMapping("/register")
     public Map<String, Object> register(@RequestBody Map<String, Object> credentials) {
+        Map<String, Object> response = new HashMap<>();
         String username = (String) credentials.get("name");
         String password = (String) credentials.get("password");
         String email = (String) credentials.get("email");
         String role = (String) credentials.get("role");
-        Map<String, Object> response = new HashMap<>();
         if ("admin".equals(role)) {
             AdminDAO admin = new AdminDAO();
             if (admin.nameAdmin(username)) {
