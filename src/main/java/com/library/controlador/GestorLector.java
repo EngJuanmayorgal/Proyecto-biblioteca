@@ -34,32 +34,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 public class GestorLector {
     /**
-     * Obtiene la lista de todos los usuarios lectores registrados.
-     * <p>
-     * Permite paginar o filtrar resultados según criterios.
-     * </p>
-     */
-    public void ConsultarUsuarios() {
-
-    }
-
-    /**
-     * Elimina un usuario lector del sistema.
-     * <p>
-     * Realiza validaciones de permisos y elimina el registro especificado.
-     * </p>
-     */
-    public void EliminarUsuario() {
-
-    }
-
-    /**
      * Muestra todos los lectores registrados en el sistema.
      *
      * @return ArrayList con todos los lectores registrados.
      */
     @GetMapping("/usuarios")
-    public ArrayList Login() {
+    public ArrayList ConsultarUsuarios() {
         return new LectorDAO().MostrarLectores();
     }
 }

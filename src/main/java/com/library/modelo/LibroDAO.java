@@ -1,5 +1,6 @@
 package com.library.modelo;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -45,8 +46,8 @@ public class LibroDAO {
             while (rs.next()) {
                 if (rs.getInt("cantidad_disponible") != 0 && comprobarLibroYaPrestado(rs.getString("titulo"), id_lector)) {
                     LibroVO libro = new LibroVO(rs.getInt("id_libro"),
-                            rs.getString("titulo"), rs.getString("autor"),
-                            rs.getInt("anio_publicacion"), rs.getString("isbn"),
+                            rs.getString("titulo"), rs.getString("editorial"), rs.getString("autor"),
+                            rs.getString("isbn"), rs.getInt("anio_publicacion"),
                             rs.getString("genero"), rs.getInt("cantidad_disponible"));
                     libros.add(libro);
                 }
@@ -65,10 +66,9 @@ public class LibroDAO {
             st = con.createStatement();
             rs = st.executeQuery(consulta);
             while (rs.next()) {
-                System.out.println(rs.getInt("anio_publicacion"));
                 LibroVO libro = new LibroVO(rs.getInt("id_libro"),
-                        rs.getString("titulo"), rs.getString("autor"),
-                        rs.getInt("anio_publicacion"), rs.getString("isbn"),
+                        rs.getString("titulo"), rs.getString("editorial"), rs.getString("autor"),
+                        rs.getString("isbn"), rs.getInt("anio_publicacion"),
                         rs.getString("genero"), rs.getInt("cantidad_disponible"));
                 libros.add(libro);
             }
@@ -102,4 +102,49 @@ public class LibroDAO {
             return false;
         }
     }
+
+    public void eliminarLibro(int id_libro) {
+        String consulta = "DELETE FROM libro WHERE (id_libro = " + id_libro + ");";
+        try {
+            con = Connectiondb.connection();
+            st = con.createStatement();
+            st.executeUpdate(consulta);
+            Connectiondb.disconnected();
+        } catch (SQLException ex) {
+        }
+    }
+
+    public void agregarLibro(String lector) {
+        String consulta = "INSERT INTO libro (titulo, autor, editorial, isbn, "
+                + "genero, anio_publicacion, cantidad_disponible) VALUES (" + lector + ");";
+        try {
+            con = Connectiondb.connection();
+            st = con.createStatement();
+            st.executeUpdate(consulta);
+            Connectiondb.disconnected();
+        } catch (SQLException ex) {
+        }
+    }
+
+    public void editarLibro(LibroVO libro) {
+        String consulta = "UPDATE libro SET titulo = ?, autor = ?, editorial = ?, isbn = ?, genero = ?, anio_publicacion = ?, cantidad_disponible = ? WHERE id_libro = ?";
+        try {
+            con = Connectiondb.connection();
+            PreparedStatement ps = con.prepareStatement(consulta);
+            ps.setString(1, libro.getTitulo());
+            ps.setString(2, libro.getAutor());
+            ps.setString(3, libro.getEditorial());
+            ps.setString(4, libro.getIsbn());
+            ps.setString(5, libro.getGenero());
+            ps.setInt(6, libro.getAño_publi());
+            ps.setInt(7, libro.getUnidDispo());
+            ps.setInt(8, libro.getId_libro());
+
+            ps.executeUpdate();
+            Connectiondb.disconnected();
+        } catch (SQLException ex) {
+            System.out.println("Error al editar libro: " + ex.getMessage());
+        }
+    }
+
 }

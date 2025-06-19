@@ -48,6 +48,7 @@ async function verLibros() {
           <thead>
             <tr style="background-color: #f2f2f2;">
               <th style="padding: 10px; border: 1px solid #ccc;">Título</th>
+              <th style="padding: 10px; border: 1px solid #ccc;">Editorial</th>
               <th style="padding: 10px; border: 1px solid #ccc;">Autor</th>
               <th style="padding: 10px; border: 1px solid #ccc;">ISBN</th>
               <th style="padding: 10px; border: 1px solid #ccc;">Año</th>
@@ -63,13 +64,14 @@ async function verLibros() {
     html += `
       <tr>
         <td style="padding: 8px; border: 1px solid #ccc;">${libro.titulo}</td>
+        <td style="padding: 8px; border: 1px solid #ccc;">${libro.editorial}</td>
         <td style="padding: 8px; border: 1px solid #ccc;">${libro.autor}</td>
         <td style="padding: 8px; border: 1px solid #ccc;">${libro.isbn}</td>
         <td style="padding: 8px; border: 1px solid #ccc;">${libro.año_publi}</td>
         <td style="padding: 8px; border: 1px solid #ccc;">${libro.genero}</td>
         <td style="padding: 8px; border: 1px solid #ccc;">${libro.unidDispo}</td>
         <td style="padding: 8px; border: 1px solid #ccc; text-align: center;">
-          <button onclick='editarLibro(${JSON.stringify(libro)})' style="padding: 5px 10px; font-size: 14px; background-color: #f1c40f; border: none; border-radius: 5px; cursor: pointer;">✏️</button>
+          <button onclick='formularioLibro(${JSON.stringify(libro)})' style="padding: 5px 10px; font-size: 14px; background-color: #f1c40f; border: none; border-radius: 5px; cursor: pointer;">✏️</button>
           <button onclick='eliminarLibro(${libro.id_libro})' style="padding: 5px 10px; font-size: 14px; background-color: #e74c3c; color: white; border: none; border-radius: 5px; cursor: pointer;">🗑️</button>
         </td>
       </tr>
@@ -90,25 +92,36 @@ async function verLibros() {
 // Mostrar formulario para agregar/editar
 function formularioLibro(libro = {}) {
   const esEdicion = !!libro.id_libro;
+
   document.getElementById("contenido").innerHTML = `
-    <h2>${esEdicion ? "✏️ Editar Libro" : "➕ Nuevo Libro"}</h2>
-    <form onsubmit="guardarLibro(event, ${esEdicion ? libro.id_libro : null})">
-      <input required placeholder="Título" id="titulo" value="${libro.titulo || ""}"><br>
-      <input required placeholder="Autor" id="autor" value="${libro.autor || ""}"><br>
-      <input required placeholder="ISBN" id="isbn" value="${libro.isbn || ""}"><br>
-      <input required placeholder="Año de publicación" type="number" id="anio" value="${libro.anio_publicacion || ""}"><br>
-      <input required placeholder="Género" id="genero" value="${libro.genero || ""}"><br>
-      <input required placeholder="Unidades disponibles" type="number" id="unidades" value="${libro.unidades || ""}"><br>
-      <button type="submit">${esEdicion ? "Actualizar" : "Agregar"}</button>
-    </form>
+    <div style="display: flex; justify-content: center; align-items: center; min-height: 100vh;">
+      <div style="background-color: rgba(255, 255, 255, 0.95); padding: 30px; border-radius: 15px; width: 90%; max-width: 600px; box-shadow: 0 0 10px rgba(0,0,0,0.2); font-size: 18px;">
+        <h2 style="text-align: center; margin-bottom: 25px;">${esEdicion ? "✏️ Editar Libro" : "➕ Nuevo Libro"}</h2>
+        <form onsubmit="guardarLibro(event, ${esEdicion ? libro.id_libro : null})" style="display: flex; flex-direction: column; gap: 15px;">
+          <input required placeholder="Título" id="titulo" value="${libro.titulo || ""}" style="padding: 10px; font-size: 16px; border-radius: 8px; border: 1px solid #ccc;">
+          <input required placeholder="Editorial" id="editorial" value="${libro.editorial || ""}" style="padding: 10px; font-size: 16px; border-radius: 8px; border: 1px solid #ccc;">
+          <input required placeholder="Autor" id="autor" value="${libro.autor || ""}" style="padding: 10px; font-size: 16px; border-radius: 8px; border: 1px solid #ccc;">
+          <input required placeholder="ISBN" id="isbn" value="${libro.isbn || ""}" style="padding: 10px; font-size: 16px; border-radius: 8px; border: 1px solid #ccc;">
+          <input required placeholder="Año de publicación" type="number" id="anio" value="${libro.año_publi || ""}" style="padding: 10px; font-size: 16px; border-radius: 8px; border: 1px solid #ccc;">
+          <input required placeholder="Género" id="genero" value="${libro.genero || ""}" style="padding: 10px; font-size: 16px; border-radius: 8px; border: 1px solid #ccc;">
+          <input required placeholder="Unidades disponibles" type="number" id="unidades" value="${libro.unidDispo || ""}" style="padding: 10px; font-size: 16px; border-radius: 8px; border: 1px solid #ccc;">
+
+          <button type="submit" style="padding: 12px; font-size: 16px; border: none; background-color: ${esEdicion ? "#f1c40f" : "#2ecc71"}; color: white; border-radius: 8px; cursor: pointer;">
+            ${esEdicion ? "Actualizar" : "Agregar"}
+          </button>
+        </form>
+      </div>
+    </div>
   `;
 }
+
 
 // Guardar libro (nuevo o editado)
 async function guardarLibro(e, id) {
   e.preventDefault();
   const libro = {
     titulo: document.getElementById("titulo").value,
+    editorial: document.getElementById("editorial").value,
     autor: document.getElementById("autor").value,
     isbn: document.getElementById("isbn").value,
     anio_publicacion: parseInt(document.getElementById("anio").value),
@@ -116,11 +129,11 @@ async function guardarLibro(e, id) {
     unidades: parseInt(document.getElementById("unidades").value)
   };
 
-  const url = id 
-    ? `http://localhost:8080/api/libros/${id}`
-    : `http://localhost:8080/api/libros`;
-    
-  const method = id ? "PUT" : "POST";
+  const url = id
+    ? `http://localhost:8080/api/librosEditar?id_libro=${id}`
+    : `http://localhost:8080/api/librosAgregar`;
+
+  const method = id ? "POST" : "POST";
 
   await fetch(url, {
     method,
@@ -134,7 +147,7 @@ async function guardarLibro(e, id) {
 // Eliminar libro
 async function eliminarLibro(id) {
   if (confirm("¿Seguro que deseas eliminar este libro?")) {
-    await fetch(`http://localhost:8080/api/libros/${id}`, { method: "DELETE" });
+    await fetch(`http://localhost:8080/api/librosEliminar?id_libro=${id}`, { method: "GET" });
     verLibros();
   }
 }
@@ -165,8 +178,8 @@ async function verPrestamos() {
       <tr>
         <td style="padding: 8px; border: 1px solid #ccc;">${p.lector}</td>
         <td style="padding: 8px; border: 1px solid #ccc;">${p.titulo}</td>
-        <td style="padding: 8px; border: 1px solid #ccc;">${p.fechaPrestamo}</td>
-        <td style="padding: 8px; border: 1px solid #ccc;">${p.fechaDevolucion}</td>
+        <td style="padding: 8px; border: 1px solid #ccc;">${p.fechaRetiro}</td>
+        <td style="padding: 8px; border: 1px solid #ccc;">${p.fechaEntrega}</td>
       </tr>
     `;
   });

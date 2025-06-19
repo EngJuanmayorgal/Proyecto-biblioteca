@@ -22,29 +22,33 @@ public class LibroVO {
     /**
      * Número de id del libro
      */
-    private  int id_libro;
+    private int id_libro;
     /**
      * Título del libro (estático, compartido entre todas las instancias)
      */
-    private  String titulo;
+    private String titulo;
+    /**
+     * Eitorial del libro
+     */
+    private String editorial;
 
     /**
      * Autor del libro (estático, compartido entre todas las instancias)
      */
-    private  String autor;
+    private String autor;
     /**
      * isbn del libro
      */
-    private  String isbn;
+    private String isbn;
     /**
      * Año de publicacion del libro
      */
-    private  int año_publi;
+    private int año_publi;
     /**
      * Género literario del libro (estático, compartido entre todas las
      * instancias)
      */
-    private  String genero;
+    private String genero;
 
     /**
      * Número de unidades disponibles del libro
@@ -56,18 +60,20 @@ public class LibroVO {
      *
      * @param titulo Título del libro
      * @param autor Autor del libro
+     * @param editorial
      * @param genero Género del libro
      * @param año_publi publicacion del libro
      * @param isbn Isbn del libro
      * @param unidDispo Unidades disponibles
      * @param id_libro Unidades disponibles
      */
-    public LibroVO(int id_libro, String titulo, String autor, int año_publi, String isbn, String genero, int unidDispo) {
+    public LibroVO(int id_libro, String titulo, String editorial, String autor, String isbn, int año_publi, String genero, int unidDispo) {
         this.id_libro = id_libro;
+        this.titulo = titulo;
+        this.editorial = editorial;
+        this.autor = autor;
         this.isbn = isbn;
         this.año_publi = año_publi;
-        this.titulo = titulo;
-        this.autor = autor;
         this.genero = genero;
         this.unidDispo = unidDispo;
     }
@@ -77,7 +83,7 @@ public class LibroVO {
      *
      * @return Título del libro
      */
-    public  String getTitulo() {
+    public String getTitulo() {
         return titulo;
     }
 
@@ -86,7 +92,7 @@ public class LibroVO {
      *
      * @return Autor del libro
      */
-    public  String getAutor() {
+    public String getAutor() {
         return autor;
     }
 
@@ -95,15 +101,25 @@ public class LibroVO {
      *
      * @return Género del libro
      */
-    public  String getGenero() {
+    public String getGenero() {
         return genero;
     }
+
+    /**
+     * Obtiene la editorial del libro.
+     *
+     * @return Editorial del libro
+     */
+    public String getEditorial() {
+        return editorial;
+    }
+
     /**
      * Obtiene el isbn del libro.
      *
      * @return isbn del libro
      */
-    public  String getIsbn() {
+    public String getIsbn() {
         return isbn;
     }
 
@@ -112,7 +128,7 @@ public class LibroVO {
      *
      * @return id del libro
      */
-    public  int getId_libro() {
+    public int getId_libro() {
         return id_libro;
     }
 
@@ -121,7 +137,7 @@ public class LibroVO {
      *
      * @return id del libro
      */
-    public  int getAño_publi() {
+    public int getAño_publi() {
         return año_publi;
     }
 
