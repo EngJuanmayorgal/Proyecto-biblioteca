@@ -158,7 +158,6 @@ function pedirPrestado(titulo, id_libro, unidDispo) {
     let lector = JSON.parse(localStorage.getItem("lector"));
     let libro = {
         id_libro: parseInt(id_libro),
-        uniDispo: parseInt(unidDispo) - 1, // Reducir unidades disponibles
         fecha_prestamo: " " + new Date().toISOString().split('T')[0],
         fecha_devolucion: " " + new Date(new Date().setDate(new Date().getDate() + 7)).toISOString().split('T')[0],
         lector: {
@@ -203,7 +202,7 @@ async function verPrestamos() {
                         📅 Retirado: ${prestamo.fechaRetiro}<br>
                         🗓️ Devolución: ${prestamo.fechaEntrega}
                     </div>
-                    <button onclick="devolverLibro('${prestamo.titulo}')" style="padding: 10px 15px; background-color: #e74c3c; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px;">
+                    <button onclick="devolverLibro('${prestamo.idPrestamo}', '${prestamo.idLibro}')" style="padding: 10px 15px; background-color: #e74c3c; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px;">
                         🔄 Devolver
                     </button>
                 </div>
@@ -217,12 +216,11 @@ async function verPrestamos() {
 }
 
 
-
-
 // Devolver libro
-async function devolverLibro(prestamoId) {
-    const response = await fetch(`http://localhost:8080/api/prestamos/devolver/${prestamoId}`, {
-        method: "PUT"
+async function devolverLibro(prestamoId, idLibro) {
+    alert("Has solicitado la devolución del libro con ID: " + idLibro + " y préstamo ID: " + prestamoId);
+    const response = await fetch(`http://localhost:8080/api/devolver?id_prestamo=${prestamoId}&idLibro=${idLibro}`, {
+        method: "GET"
     });
 
     const data = await response.json();

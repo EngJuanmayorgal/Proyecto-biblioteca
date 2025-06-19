@@ -43,7 +43,7 @@ public class LibroDAO {
             st = con.createStatement();
             rs = st.executeQuery(consulta);
             while (rs.next()) {
-                if (rs.getInt("cantidad_disponible")!=0 && comprobarLibroYaPrestado(rs.getString("titulo"),id_lector)) {
+                if (rs.getInt("cantidad_disponible") != 0 && comprobarLibroYaPrestado(rs.getString("titulo"), id_lector)) {
                     LibroVO libro = new LibroVO(rs.getInt("id_libro"),
                             rs.getString("titulo"), rs.getString("autor"),
                             rs.getInt("anio_publicacion"), rs.getString("isbn"),
@@ -57,8 +57,29 @@ public class LibroDAO {
         return libros;
     }
 
-    public boolean comprobarLibroYaPrestado(String titulo,int id_lector) {
-        ArrayList<PrestamoVO> prestamos= new PrestamoDAO().MostrarPrestamosLector(id_lector);
+    public ArrayList<LibroVO> MostrarLibros() {
+        ArrayList<LibroVO> libros = new ArrayList<>();
+        String consulta = "SELECT * FROM libro ORDER BY id_libro;";
+        try {
+            con = Connectiondb.connection();
+            st = con.createStatement();
+            rs = st.executeQuery(consulta);
+            while (rs.next()) {
+                System.out.println(rs.getInt("anio_publicacion"));
+                LibroVO libro = new LibroVO(rs.getInt("id_libro"),
+                        rs.getString("titulo"), rs.getString("autor"),
+                        rs.getInt("anio_publicacion"), rs.getString("isbn"),
+                        rs.getString("genero"), rs.getInt("cantidad_disponible"));
+                libros.add(libro);
+            }
+            Connectiondb.disconnected();
+        } catch (SQLException ex) {
+        }
+        return libros;
+    }
+
+    public boolean comprobarLibroYaPrestado(String titulo, int id_lector) {
+        ArrayList<PrestamoVO> prestamos = new PrestamoDAO().MostrarPrestamosLector(id_lector);
         for (PrestamoVO prestamo : prestamos) {
             if (prestamo.getTitulo().equals(titulo)) {
                 return false;
@@ -67,9 +88,10 @@ public class LibroDAO {
         return true;
     }
 
-    public boolean cambiarUniDispo(int uniDispo, int id_libro) {
+    public boolean cambiarUniDispo(String opcion, int id_libro) {
+
         String consulta = "UPDATE libro SET cantidad_disponible = "
-                + uniDispo + " WHERE (id_libro = " + id_libro + ")";
+                + " cantidad_disponible" + opcion + "1 WHERE (id_libro = " + id_libro + ")";
         try {
             con = Connectiondb.connection();
             st = con.createStatement();
@@ -77,7 +99,6 @@ public class LibroDAO {
             Connectiondb.disconnected();
             return true;
         } catch (SQLException ex) {
-            System.out.println(ex);
             return false;
         }
     }

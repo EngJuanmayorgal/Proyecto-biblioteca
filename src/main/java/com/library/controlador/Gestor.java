@@ -74,6 +74,7 @@ public class Gestor {
         String role = (String) credentials.get("role");
         Map<String, Object> response = new HashMap<>();
         if ("admin".equals(role)) {
+            System.out.println("pepe");
             AdminDAO admin = new AdminDAO();
 
             if (admin.entrarAdmin(username, password)) {

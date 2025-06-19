@@ -87,7 +87,7 @@ public class AdminDAO {
      * @return {@code true} si las credenciales son válidas; {@code false} en caso contrario.
      */
     public boolean entrarAdmin(String user, String pass) {
-        String query = "SELECT admin_id FROM admin WHERE user = '" + user + "' AND pass = '" + pass + "'";
+        String query = "SELECT id_admin FROM admin WHERE user = '" + user + "' AND pass = '" + pass + "'";
         try {
             con = Connectiondb.connection();
             st = con.createStatement();
@@ -108,7 +108,7 @@ public class AdminDAO {
      * @return {@code true} si el usuario existe; {@code false} si está disponible.
      */
     public boolean nameAdmin(String user) {
-        String query = "SELECT admin_id FROM admin WHERE user = '" + user + "'";
+        String query = "SELECT id_admin FROM admin WHERE user = '" + user + "'";
         try {
             con = Connectiondb.connection();
             st = con.createStatement();

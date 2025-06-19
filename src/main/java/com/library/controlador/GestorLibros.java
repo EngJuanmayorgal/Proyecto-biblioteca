@@ -47,6 +47,10 @@ public class GestorLibros {
     public ArrayList verLibros(@RequestParam int id_lector){
     return new LibroDAO().MostrarLibros(id_lector);
     }   
+    @GetMapping("/todos los libros")
+    public ArrayList verLibros(){
+    return new LibroDAO().MostrarLibros();
+    }   
     /**
      * Añade un nuevo libro al catálogo de la biblioteca.
      */

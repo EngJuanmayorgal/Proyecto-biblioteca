@@ -32,7 +32,7 @@ public class PrestamoDAO {
     }
 
     public boolean ingresarPrestamo(String fPrestamo, String fDevolucion,
-            int idLibro, int idLector, int uniDisp) {
+            int idLibro, int idLector) {
         try {
             String ingresar = "INSERT INTO prestamo(fecha_prestamo,fecha_devolucion,id_libro,id_lector) "
                     + "VALUE('" + fPrestamo + "','" + fDevolucion + "'," + idLibro + "," + idLector + ")";
@@ -41,17 +41,44 @@ public class PrestamoDAO {
             st.executeUpdate(ingresar);
             st.close();
             Connectiondb.disconnected();
-            new LibroDAO().cambiarUniDispo(uniDisp, idLibro);
+            new LibroDAO().cambiarUniDispo("-", idLibro);
             return true;
         } catch (SQLException ex) {
             return false;
         }
     }
 
-    public ArrayList<PrestamoVO> MostrarPrestamosLector(int id_lector) {
+    public ArrayList MostrarPrestamos() {
         ArrayList<PrestamoVO> Prestamos = new ArrayList<>();
         String consulta = """
-                          select id_prestamo,fecha_prestamo,fecha_devolucion,titulo from lector
+                          select name,id_prestamo,fecha_prestamo,fecha_devolucion,titulo from lector
+                          join prestamo
+                          on prestamo.id_lector=lector.id_lector
+                          join libro
+                          on prestamo.id_libro=libro.id_libro 
+                          ;""";
+        try {
+            con = Connectiondb.connection();
+            st = con.createStatement();
+            rs = st.executeQuery(consulta);
+            while (rs.next()) {
+                PrestamoVO prestamo = new PrestamoVO(rs.getInt("id_prestamo"),
+                        rs.getString("name"), rs.getString("titulo"),
+                        rs.getString("fecha_prestamo"),
+                        rs.getString("fecha_devolucion"));
+                Prestamos.add(prestamo);
+            }
+            Connectiondb.disconnected();
+        } catch (SQLException ex) {
+        }
+        return Prestamos;
+
+    }
+
+    public ArrayList MostrarPrestamosLector(int id_lector) {
+        ArrayList<PrestamoVO> Prestamos = new ArrayList<>();
+        String consulta = """
+                          select id_prestamo,fecha_prestamo,fecha_devolucion,prestamo.id_libro,titulo from lector
                           join prestamo
                           on prestamo.id_lector=lector.id_lector
                           join libro
@@ -64,7 +91,8 @@ public class PrestamoDAO {
             rs = st.executeQuery(consulta);
             while (rs.next()) {
                 PrestamoVO prestamo = new PrestamoVO(rs.getInt("id_prestamo"),
-                        rs.getString("titulo"), rs.getString("fecha_prestamo"),
+                        rs.getInt("id_libro"), rs.getString("titulo"),
+                        rs.getString("fecha_prestamo"),
                         rs.getString("fecha_devolucion"));
                 Prestamos.add(prestamo);
             }
@@ -73,5 +101,18 @@ public class PrestamoDAO {
         }
         return Prestamos;
 
+    }
+
+    public void DevolverPrestamo(int idPrestamo, int idLibro) {
+        try {
+            String eliminar = "DELETE FROM prestamo WHERE (id_prestamo = " + idPrestamo + ")";
+            con = Connectiondb.connection();
+            st = con.createStatement();
+            st.executeUpdate(eliminar);
+            st.close();
+            Connectiondb.disconnected();
+            new LibroDAO().cambiarUniDispo("+", idLibro);
+        } catch (SQLException ex) {
+        }
     }
 }

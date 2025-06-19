@@ -1,11 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biblioteca</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel Admin - Biblioteca</title>
+  <link rel="stylesheet" href="stylesPag.css" />
 </head>
-<body>
-    admin
+<body style="background-image: url(images/fonding.jpg);">
+  <div class="sidebar" id="sidebar">
+    <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+    <button onclick="mostrarUsuarios()"><i>👤</i> <span>Usuarios</span></button>
+    <button onclick="verLibros()"><i>📚</i> <span>Libros</span></button>
+    <button onclick="verPrestamos()"><i>📄</i> <span>Préstamos</span></button>
+    <button onclick="cerrarSesion()"><i>🚪</i> <span>Salir</span></button>
+  </div>
+
+  <div class="main-content" id="contenido">
+    <h2  style="color: aliceblue;">Bienvenido, Administrador</h2>
+  </div>
+
+  <script src="admin.js"></script>
 </body>
 </html>
