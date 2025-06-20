@@ -48,9 +48,15 @@ public class GestorLibros {
 
     @GetMapping("/libros/id_lector")
     public ArrayList verLibros(@RequestParam int id_lector) {
+        
         return new LibroDAO().MostrarLibros(id_lector);
     }
 
+    @GetMapping("/hola")
+    public String hola(){
+    return "holaaaa";
+    }
+    
     @GetMapping("/todos los libros")
     public ArrayList verLibros() {
         return new LibroDAO().MostrarLibros();
