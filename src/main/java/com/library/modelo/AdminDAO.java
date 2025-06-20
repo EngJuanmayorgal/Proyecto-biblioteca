@@ -65,7 +65,7 @@ public class AdminDAO {
      * @param admin Cadena con los valores a insertar (username, password, email) en formato SQL.
      * @return {@code true} si la inserción fue exitosa; {@code false} en caso de error.
      */
-    public boolean ingresarAdmin(String admin) {
+    public boolean ingresarAdmin(String admin) throws ClassNotFoundException {
         try {
             String query = "INSERT INTO admin(user,pass,email) VALUES(" + admin + ")";
             con = Connectiondb.connection();
@@ -86,7 +86,7 @@ public class AdminDAO {
      * @param pass Contraseña asociada al administrador.
      * @return {@code true} si las credenciales son válidas; {@code false} en caso contrario.
      */
-    public boolean entrarAdmin(String user, String pass) {
+    public boolean entrarAdmin(String user, String pass) throws ClassNotFoundException {
         String query = "SELECT id_admin FROM admin WHERE user = '" + user + "' AND pass = '" + pass + "'";
         try {
             con = Connectiondb.connection();
@@ -107,7 +107,7 @@ public class AdminDAO {
      * @param user Nombre de usuario a verificar.
      * @return {@code true} si el usuario existe; {@code false} si está disponible.
      */
-    public boolean nameAdmin(String user) {
+    public boolean nameAdmin(String user) throws ClassNotFoundException {
         String query = "SELECT id_admin FROM admin WHERE user = '" + user + "'";
         try {
             con = Connectiondb.connection();

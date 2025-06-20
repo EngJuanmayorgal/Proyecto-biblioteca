@@ -36,7 +36,7 @@ public class LibroDAO {
         rs = null;
     }
 
-    public ArrayList<LibroVO> MostrarLibros(int id_lector) {
+    public ArrayList<LibroVO> MostrarLibros(int id_lector) throws ClassNotFoundException {
         ArrayList<LibroVO> libros = new ArrayList<>();
         String consulta = "SELECT * FROM libro ORDER BY id_libro";
         try {
@@ -58,7 +58,7 @@ public class LibroDAO {
         return libros;
     }
 
-    public ArrayList<LibroVO> MostrarLibros() {
+    public ArrayList<LibroVO> MostrarLibros() throws ClassNotFoundException {
         ArrayList<LibroVO> libros = new ArrayList<>();
         String consulta = "SELECT * FROM libro ORDER BY id_libro;";
         try {
@@ -88,7 +88,7 @@ public class LibroDAO {
         return true;
     }
 
-    public boolean cambiarUniDispo(String opcion, int id_libro) {
+    public boolean cambiarUniDispo(String opcion, int id_libro) throws ClassNotFoundException {
 
         String consulta = "UPDATE libro SET cantidad_disponible = "
                 + " cantidad_disponible" + opcion + "1 WHERE (id_libro = " + id_libro + ")";
@@ -103,7 +103,7 @@ public class LibroDAO {
         }
     }
 
-    public void eliminarLibro(int id_libro) {
+    public void eliminarLibro(int id_libro) throws ClassNotFoundException {
         String consulta = "DELETE FROM libro WHERE (id_libro = " + id_libro + ");";
         try {
             con = Connectiondb.connection();
@@ -114,7 +114,7 @@ public class LibroDAO {
         }
     }
 
-    public void agregarLibro(String lector) {
+    public void agregarLibro(String lector) throws ClassNotFoundException {
         String consulta = "INSERT INTO libro (titulo, autor, editorial, isbn, "
                 + "genero, anio_publicacion, cantidad_disponible) VALUES (" + lector + ");";
         try {
@@ -126,7 +126,7 @@ public class LibroDAO {
         }
     }
 
-    public void editarLibro(LibroVO libro) {
+    public void editarLibro(LibroVO libro) throws ClassNotFoundException {
         String consulta = "UPDATE libro SET titulo = ?, autor = ?, editorial = ?, isbn = ?, genero = ?, anio_publicacion = ?, cantidad_disponible = ? WHERE id_libro = ?";
         try {
             con = Connectiondb.connection();
