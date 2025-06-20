@@ -32,7 +32,7 @@ public class PrestamoDAO {
     }
 
     public boolean ingresarPrestamo(String fPrestamo, String fDevolucion,
-            int idLibro, int idLector) {
+            int idLibro, int idLector) throws ClassNotFoundException {
         try {
             String ingresar = "INSERT INTO prestamo(fecha_prestamo,fecha_devolucion,id_libro,id_lector) "
                     + "VALUE('" + fPrestamo + "','" + fDevolucion + "'," + idLibro + "," + idLector + ")";
@@ -48,7 +48,7 @@ public class PrestamoDAO {
         }
     }
 
-    public ArrayList MostrarPrestamos() {
+    public ArrayList MostrarPrestamos() throws ClassNotFoundException {
         ArrayList<PrestamoVO> Prestamos = new ArrayList<>();
         String consulta = """
                           select name,id_prestamo,fecha_prestamo,fecha_devolucion,titulo from lector
@@ -75,7 +75,7 @@ public class PrestamoDAO {
 
     }
 
-    public ArrayList MostrarPrestamosLector(int id_lector) {
+    public ArrayList MostrarPrestamosLector(int id_lector) throws ClassNotFoundException {
         ArrayList<PrestamoVO> Prestamos = new ArrayList<>();
         String consulta = """
                           select id_prestamo,fecha_prestamo,fecha_devolucion,prestamo.id_libro,titulo from lector
@@ -103,7 +103,7 @@ public class PrestamoDAO {
 
     }
 
-    public void DevolverPrestamo(int idPrestamo, int idLibro) {
+    public void DevolverPrestamo(int idPrestamo, int idLibro) throws ClassNotFoundException {
         try {
             String eliminar = "DELETE FROM prestamo WHERE (id_prestamo = " + idPrestamo + ")";
             con = Connectiondb.connection();

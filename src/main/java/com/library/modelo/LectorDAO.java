@@ -47,7 +47,7 @@ public class LectorDAO {
      * @param jugador Cadena con los valores a insertar (nombre, contraseña y email)
      * @return true si la operación fue exitosa, false en caso contrario
      */
-    public boolean ingresarLector(String jugador) {
+    public boolean ingresarLector(String jugador) throws ClassNotFoundException {
         try {
             String ingresar = "INSERT INTO lector(name,pass,email) "
                     + "VALUE(" + jugador + ")";
@@ -69,7 +69,7 @@ public class LectorDAO {
      * @param pass Contraseña del usuario
      * @return true si el lector existe, false en caso contrario
      */
-    public boolean entrarLector(String user, String pass) {
+    public boolean entrarLector(String user, String pass) throws ClassNotFoundException {
         String consulta = "SELECT id_lector FROM lector WHERE name = '" + user + "' AND pass = " + pass;
         try {
             con = Connectiondb.connection();
@@ -88,7 +88,7 @@ public class LectorDAO {
             return false;
         }
     }
-    public LectorVO entrarLectorVO(String user, String pass) {
+    public LectorVO entrarLectorVO(String user, String pass) throws ClassNotFoundException {
         String consulta = "SELECT * FROM lector WHERE name = '" + user + "' AND pass = " + pass;
         try {
             con = Connectiondb.connection();
@@ -115,7 +115,7 @@ public class LectorDAO {
      * @param user Nombre de usuario
      * @return true si el usuario existe, false en caso contrario
      */
-    public boolean nameLector(String user) {
+    public boolean nameLector(String user) throws ClassNotFoundException {
         String consulta = "SELECT id_lector FROM lector WHERE name = '" + user + "'";
         try {
             con = Connectiondb.connection();
@@ -142,7 +142,7 @@ public class LectorDAO {
      */
     
     
-    public ArrayList<LectorVO> MostrarLectores() {
+    public ArrayList<LectorVO> MostrarLectores() throws ClassNotFoundException {
         ArrayList<LectorVO> lectores = new ArrayList<>();
         String consulta = "SELECT * FROM lector ORDER BY id_lector";
         try {

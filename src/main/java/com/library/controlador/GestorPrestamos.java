@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class GestorPrestamos {
 
     @PostMapping("/prestamo")
-    public Map<String, Object> pedirPrestamo(@RequestBody Map<String, Object> credentials) {
+    public Map<String, Object> pedirPrestamo(@RequestBody Map<String, Object> credentials) throws ClassNotFoundException {
         Map<String, Object> response = new HashMap<>();
         Map<String, Object> libro = (Map<String, Object>) credentials.get("libro");
         int idLibro = Integer.parseInt(libro.get("id_libro").toString());
@@ -36,16 +36,16 @@ public class GestorPrestamos {
     }
 
     @GetMapping("/prestamos/id_lector")
-    public ArrayList verPrestamos(@RequestParam int id_lector) {
+    public ArrayList verPrestamos(@RequestParam int id_lector) throws ClassNotFoundException {
         return new PrestamoDAO().MostrarPrestamosLector(id_lector);
     }
     @GetMapping("/prestamos")
-    public ArrayList verPrestamos() {
+    public ArrayList verPrestamos() throws ClassNotFoundException {
         return new PrestamoDAO().MostrarPrestamos();
     }
 
     @GetMapping("/devolver")
-    public Map<String, String> debolverPrestamo(@RequestParam int id_prestamo, @RequestParam int idLibro) {
+    public Map<String, String> debolverPrestamo(@RequestParam int id_prestamo, @RequestParam int idLibro) throws ClassNotFoundException {
         new PrestamoDAO().DevolverPrestamo(id_prestamo, idLibro);
         Map<String, String> response = new HashMap<>();
         response.put("message", "Libro devuelto correctamente.");

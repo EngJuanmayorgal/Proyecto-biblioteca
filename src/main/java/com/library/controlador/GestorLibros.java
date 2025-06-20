@@ -47,12 +47,19 @@ import org.springframework.web.bind.annotation.RestController;
 public class GestorLibros {
 
     @GetMapping("/libros/id_lector")
-    public ArrayList verLibros(@RequestParam int id_lector) {
+    public ArrayList verLibros(@RequestParam int id_lector) throws ClassNotFoundException {
+        
         return new LibroDAO().MostrarLibros(id_lector);
     }
 
+    @GetMapping("/hola")
+    public String hola(){
+        System.out.println("hollllaaa");
+    return "holaaaae";
+    }
+    
     @GetMapping("/todos los libros")
-    public ArrayList verLibros() {
+    public ArrayList verLibros() throws ClassNotFoundException {
         return new LibroDAO().MostrarLibros();
     }
 
@@ -60,7 +67,7 @@ public class GestorLibros {
      * Añade un nuevo libro al catálogo de la biblioteca.
      */
     @PostMapping("/librosAgregar")
-    public void AñadirLibro(@RequestBody Map<String, Object> credentials) {
+    public void AñadirLibro(@RequestBody Map<String, Object> credentials) throws ClassNotFoundException {
         String titulo = (String) credentials.get("titulo");
         String editorial = (String) credentials.get("editorial");
         String autor = (String) credentials.get("autor");
@@ -79,7 +86,7 @@ public class GestorLibros {
      * @param id_libro
      */
     @PostMapping("/librosEditar")
-    public void EditarLibro(@RequestBody Map<String, Object> credentials, int id_libro) {
+    public void EditarLibro(@RequestBody Map<String, Object> credentials, int id_libro) throws ClassNotFoundException {
         String titulo = (String) credentials.get("titulo");
         String editorial = (String) credentials.get("editorial");
         String autor = (String) credentials.get("autor");
@@ -97,7 +104,7 @@ public class GestorLibros {
      * @param id_libro
      */
     @GetMapping("/librosEliminar")
-    public void EliminarLibro(@RequestParam int id_libro) {
+    public void EliminarLibro(@RequestParam int id_libro) throws ClassNotFoundException {
         new LibroDAO().eliminarLibro(id_libro);
     }
 }
