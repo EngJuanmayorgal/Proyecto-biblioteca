@@ -140,6 +140,10 @@ public class Gestor {
         return response;
     }
 
+    @GetMapping("/")
+    public String salud() {
+        return "API Biblioteca activa 🚀";
+    }
     
 
 }
