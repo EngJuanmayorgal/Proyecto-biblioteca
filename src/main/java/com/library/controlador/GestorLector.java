@@ -39,7 +39,7 @@ public class GestorLector {
      * @return ArrayList con todos los lectores registrados.
      */
     @GetMapping("/usuarios")
-    public ArrayList ConsultarUsuarios() {
+    public ArrayList ConsultarUsuarios() throws ClassNotFoundException {
         return new LectorDAO().MostrarLectores();
     }
 }

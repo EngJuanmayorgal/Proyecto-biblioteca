@@ -68,7 +68,7 @@ public class Gestor {
      * contrario.
      */
     @PostMapping("/login")
-    public Map<String, Object> login(@RequestBody Map<String, Object> credentials) {
+    public Map<String, Object> login(@RequestBody Map<String, Object> credentials) throws ClassNotFoundException {
         String username = (String) credentials.get("username");
         String password = (String) credentials.get("password");
         String role = (String) credentials.get("role");
@@ -108,7 +108,7 @@ public class Gestor {
      * </ul>
      */
     @PostMapping("/register")
-    public Map<String, Object> register(@RequestBody Map<String, Object> credentials) {
+    public Map<String, Object> register(@RequestBody Map<String, Object> credentials) throws ClassNotFoundException {
         Map<String, Object> response = new HashMap<>();
         String username = (String) credentials.get("name");
         String password = (String) credentials.get("password");

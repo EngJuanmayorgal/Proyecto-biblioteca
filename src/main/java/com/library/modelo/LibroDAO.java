@@ -78,7 +78,7 @@ public class LibroDAO {
         return libros;
     }
 
-    public boolean comprobarLibroYaPrestado(String titulo, int id_lector) {
+    public boolean comprobarLibroYaPrestado(String titulo, int id_lector) throws ClassNotFoundException {
         ArrayList<PrestamoVO> prestamos = new PrestamoDAO().MostrarPrestamosLector(id_lector);
         for (PrestamoVO prestamo : prestamos) {
             if (prestamo.getTitulo().equals(titulo)) {

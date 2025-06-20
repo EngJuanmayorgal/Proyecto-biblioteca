@@ -71,12 +71,14 @@ public class Connectiondb {
      * @return Objeto Connection activo si la conexión fue exitosa; de lo
      * contrario, null.
      */
-    public static Connection connection() throws ClassNotFoundException {
+    public static Connection connection() {
         try {
             Class.forName("org.postgresql.Driver");
             db = DriverManager.getConnection(url, usuario, clave);
         } catch (SQLException ex) {
             Logger.getLogger(java.sql.Connection.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Connectiondb.class.getName()).log(Level.SEVERE, null, ex);
         }
         return db;
     }
