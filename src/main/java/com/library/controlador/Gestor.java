@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -68,7 +69,7 @@ public class Gestor {
      * contrario.
      */
     @PostMapping("/login")
-    public Map<String, Object> login(@RequestBody Map<String, Object> credentials) {
+    public Map<String, Object> login(@RequestBody Map<String, Object> credentials) throws ClassNotFoundException {
         String username = (String) credentials.get("username");
         String password = (String) credentials.get("password");
         String role = (String) credentials.get("role");
@@ -108,7 +109,7 @@ public class Gestor {
      * </ul>
      */
     @PostMapping("/register")
-    public Map<String, Object> register(@RequestBody Map<String, Object> credentials) {
+    public Map<String, Object> register(@RequestBody Map<String, Object> credentials) throws ClassNotFoundException {
         Map<String, Object> response = new HashMap<>();
         String username = (String) credentials.get("name");
         String password = (String) credentials.get("password");
@@ -140,6 +141,10 @@ public class Gestor {
         return response;
     }
 
+    @GetMapping("/")
+    public String salud() {
+        return "API Biblioteca activa 🚀";
+    }
     
 
 }

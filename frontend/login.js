@@ -9,7 +9,6 @@ let Login = async () => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(user),
   });
-
   const data = await response.json();
   if (data.success) {
     if (user.role === "user") {
@@ -23,3 +22,13 @@ let Login = async () => {
     window.location.href = "login.html";
   }
 };
+
+let hola = async () => {
+  const response = await fetch("https://biblioteca-6yly.onrender.com/api/hola", {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
+  const data = await response.json();
+  alert(data)
+};
+
